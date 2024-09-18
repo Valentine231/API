@@ -9,7 +9,7 @@ const App = () => {
     try {
       const randomId = Math.floor(Math.random() * 898) + 1;
       const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomId}`,{
-        timeout:20000
+        timeout:10000
       } );
       const data = response.data;
       const spriteUrl = data.sprites && data.sprites.front_default;
