@@ -3,6 +3,37 @@ import axios from 'axios';
 
 
 const App = () => {
+  const [Score, setScore] = useState(0);
+  const [Bestscore, setBestscore] = useState(0);
+
+ 
+  return (
+    <div>
+    <h1>Random Pokémon</h1>
+    <div>
+      <Count Score={Score} setScore={setScore} Bestscore={Bestscore}/>
+      <div className='clay'>
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/> 
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      </div>
+
+      <div className='clay'>
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      </div>
+
+      </div>
+    </div>
+  );
+  
+}
+const Memory =({Score,setScore,Bestscore,setBestscore})=>{
   const [pokemon, setPokemon] = useState({});
 
   const fetchPokemon = async () => {
@@ -35,22 +66,34 @@ const App = () => {
 
   const handleShuffle = async () => {
    await fetchPokemon()
-  };
+   setScore(Score+1)
+  }
 
   return (
     <>
-      <h1>Random Pokémon</h1>
+     <div>
       <div className='cold'>
-          <div className='clay'>
-           
-            <button onClick={()=>handleShuffle()}>
+          <div>
+            <button onClick={()=>handleShuffle()}  className='btn'>
             <img src={pokemon.sprites}   alt={pokemon.name} className='top'/>
             </button>
-          
           </div>
       </div>
+    </div>
     </>
   );
 };
+
+
+
+const Count =({Score,Bestscore})=>{
+  return(
+    <div>
+      <h2>Score:{Score}</h2>
+      <h2>Bestscore:{Bestscore}</h2>
+    </div>
+  )
+}
+
 
 export default App;

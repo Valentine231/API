@@ -35,16 +35,39 @@ h1 {
   line-height: 1.1;
 }
 
+.cold{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: center;
+  
+}
+
+.clay{
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 2rem;
+}
 .top{
   padding:2rem;
+}
 
-
+.btn{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 2rem;
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 3rem;
+  padding: 2rem;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
