@@ -35,10 +35,12 @@ const App = () => {
 }
 const Memory =({Score,setScore,Bestscore,setBestscore})=>{
   const [pokemon, setPokemon] = useState({});
+  
+  let randomId 
 
   const fetchPokemon = async () => {
     try {
-      const randomId = Math.floor(Math.random() * 898) + 1;
+      randomId = Math.floor(Math.random() * 898) + 1;
       const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomId}`,{
         timeout:10000
       } );
@@ -67,6 +69,13 @@ const Memory =({Score,setScore,Bestscore,setBestscore})=>{
   const handleShuffle = async () => {
    await fetchPokemon()
    setScore(Score+1)
+
+   if(randomId === pokemon){
+    setBestscore(Score)
+    setScore(0)
+   }else{
+    return
+   }
   }
 
   return (
