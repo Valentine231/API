@@ -13,19 +13,15 @@ const App = () => {
     <div>
       <Count Score={Score} setScore={setScore} Bestscore={Bestscore}/>
       <div className='clay'>
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/> 
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+        {[...Array(5)].map((_,i) => (
+      <Memory key={i} Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+        ))}
       </div>
 
       <div className='clay'>
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
-      <Memory Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+      {[...Array(5)].map((_,i) => (
+      <Memory key={i} Score={Score} setScore={setScore} Bestscore={Bestscore} setBestscore={setBestscore}/>
+        ))}
       </div>
 
       </div>
@@ -33,14 +29,15 @@ const App = () => {
   );
   
 }
+
 const Memory =({Score,setScore,Bestscore,setBestscore})=>{
   const [pokemon, setPokemon] = useState({});
-  
+  const[fetchedIds,setFetchedIds]=useState([])
   let randomId 
 
   const fetchPokemon = async () => {
     try {
-      randomId = Math.floor(Math.random() * 898) + 1;
+      randomId = Math.floor(Math.random() * 50) + 1;
       const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomId}`,{
         timeout:10000
       } );
@@ -70,13 +67,25 @@ const Memory =({Score,setScore,Bestscore,setBestscore})=>{
    await fetchPokemon()
    setScore(Score+1)
 
-   if(randomId === pokemon){
-    setBestscore(Score)
-    setScore(0)
-   }else{
-    return
-   }
+   if (fetchedIds.includes(randomId)) {
+    if (Score > Bestscore) {
+      setBestscore(Score);
+    }
+    setScore(0);
+  } else {
+    setScore(Score + 1);
+    setFetchedIds([...fetchedIds, randomId]);
   }
+};
+
+  //  if(fetchedIds.includes(randomId)){
+  //   setBestscore(Math.max(Bestscore,Score))
+  //   setScore(0)
+  //  }else{
+  //   setScore(Score + 1);
+  //   setBestscore([...fetchedIds,randomId])
+  //  }
+  // }
 
   return (
     <>
