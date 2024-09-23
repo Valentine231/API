@@ -96,3 +96,30 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@media only screen and (max-width: 700px) {
+  /* Adjust layout for mobile */
+  .clay {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .cold {
+    width: 70%;
+    margin: 10px;
+  }
+
+  .top {
+    width: 50px;
+    height: 50px;
+  }
+
+  h1, h2 {
+    font-size: 18px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}
