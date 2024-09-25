@@ -39,7 +39,10 @@ Keep clicking on different images to increase your score.
 If you click on the same image twice, the game will reset your score and best score.
 Try to achieve the highest score possible!
 
-
+chanlleges
+#APi connection problem, the api works properly with a strong connection to the internet
+#setting the bestscore which was suppose to take effect after a particular is clicked more
+than once 
 
 
 
