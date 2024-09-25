@@ -33,11 +33,12 @@ const App = () => {
 const Memory =({Score,setScore,Bestscore,setBestscore})=>{
   const [pokemon, setPokemon] = useState({});
   const[fetchedIds,setFetchedIds]=useState([])
-  let randomId 
+  const [previousImage, setPreviousImage] = useState(null);
+
 
   const fetchPokemon = async () => {
     try {
-      randomId = Math.floor(Math.random() * 50) + 1;
+     const randomId = Math.floor(Math.random() * 70) + 1;
       const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomId}`,{
         timeout:10000
       } );
@@ -47,6 +48,7 @@ const Memory =({Score,setScore,Bestscore,setBestscore})=>{
         name: data.name,
         sprites:  spriteUrl,
       });
+      return randomId
     } catch (error) {
       if (error.code === 'ECONNABORTED') {
         console.error('Timeout exceeded. Retrying...');
@@ -64,17 +66,27 @@ const Memory =({Score,setScore,Bestscore,setBestscore})=>{
 
 
   const handleShuffle = async () => {
-   await fetchPokemon()
-   setScore(Score+1)
-
-   if (fetchedIds.includes(randomId)) {
-    if (Score > Bestscore) {
-      setBestscore(Score);
-    }
+   const randomId = await fetchPokemon()
+   const currentImage = pokemon.sprites
+  
+   if (currentImage === previousImage) {
+    // If the current image is the same as the previous one, end the game and display a message
+    console.log('Game over! You clicked on the same image twice.');
     setScore(0);
+    setBestscore(0);
   } else {
+    // If the current image is not the same as the previous one, update the previous image and continue the game
+    setPreviousImage(currentImage);
     setScore(Score + 1);
-    setFetchedIds([...fetchedIds, randomId]);
+
+    if (fetchedIds.includes(randomId)) {
+      if (Score > Bestscore) {
+        setBestscore(Score);
+      }
+      setScore(0);
+    } else {
+      setFetchedIds([...fetchedIds, randomId]);
+    }
   }
 };
 
